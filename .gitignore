@@ -5,9 +5,6 @@
 # Files for the ART/Dalvik VM
 *.dex
 
-# Java class files
-*.class
-
 # Generated files
 bin/
 gen/
@@ -26,30 +23,17 @@ proguard/
 # Log Files
 *.log
 
-# Android Studio Navigation editor temp files
-.navigation/
-
-# Android Studio captures folder
-captures/
-
-# Intellij
-*.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/dictionaries
-.idea/libraries
-
-# Keystore files
-*.jks
-
-# External native build folder generated in Android Studio 2.2 and later
-.externalNativeBuild
-
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
-# Freeline
-freeline.py
-freeline/
-freeline_project_description.json
+# Ionic
+node_modules
+.tmp
+.sass-cache
+**/bower_components or sometimes it is lib/**
+platforms
+plugins
+*.swp
+*.swo
+*.log
+*.DS_Store
