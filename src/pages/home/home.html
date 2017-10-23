@@ -5,21 +5,18 @@
 </ion-header>
 
 <ion-content padding>
-
-  
-  <ion-item >
-    
-    
-  </ion-item>
- 
-  
-    <ion-item *ngFor="let item of barbearias; let i = index">
-      {{item}}
-      
-    </ion-item>
   <ion-list>
 
-  </ion-list>
+ 
+  <ion-item *ngFor="let item of barbearias; let i = index">
+    <ion-icon ios="ios-home" md="md-home"></ion-icon> {{item.nome}}
+    <div style="float:right">
+
+      <ion-icon ios="ios-navigate" md="md-navigate"></ion-icon> {{item.distancia }} M</div>
+
+  </ion-item>
+
+</ion-list>
 
  
 </ion-content>

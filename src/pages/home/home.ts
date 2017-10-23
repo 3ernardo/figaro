@@ -16,7 +16,7 @@ export class HomePage {
   myInput;
   myInputDois;
   barbearias = [];
-  localidadeOrigem = [];
+
 
   //String que montara a URL de Rest para API do Maps
 
@@ -24,16 +24,6 @@ export class HomePage {
 
   // atributo fdb contem os dados do banco
   constructor(public navCtrl: NavController, private fdb: AngularFireDatabase) {
-    
-    var distance = require('google-distance-matrix');
-    distance.key('AIzaSyDl3kN1tvhtZMhXKy_zVmpnHmVty8PXYBg');
-    distance.units('metric');
-    var origin = distance.origin_addresses;
-    console.log(origin);                   
-
-
-
-
     this.localizarUsuario();
 
   }
@@ -54,8 +44,8 @@ export class HomePage {
       .subscribe(snapshots => {
         snapshots.forEach(snapshot => {
           var localizacaoBarbearia;
-          var barbeariasTemp = this.barbearias;
-         
+          var barbearias2 = this.barbearias;
+          var nome = snapshot.val().nome;
 
           localizacaoBarbearia = snapshot.val().localizacao;
           //console.log(localizacaoBarbearia);
@@ -65,7 +55,7 @@ export class HomePage {
 
             var geolocation = window.navigator.geolocation;
             var posicaoAtual = geolocation.getCurrentPosition(sucesso, erro);
-            console.log('posicaoAtual ' + posicaoAtual);
+     
 
           } else {
             alert('Geolocalização não suportada em seu navegador.')
@@ -101,11 +91,9 @@ export class HomePage {
                     var origin = distances.origin_addresses[i];
                     var destination = distances.destination_addresses[j];
                     if (distances.rows[0].elements[j].status == 'OK') {
-                      var distancia = distances.rows[i].elements[j].distance.text;
-                      //console.log('Distancia de ' + origin + ' até ' + destination + ' é ' + distancia);
-                      //console.log(snapshot.val().nome + distancia);
-                      barbeariasTemp.push(snapshot.val().nome + " " +  distancia);
-                    
+                      var distancia = distances.rows[i].elements[j].distance.value;
+                      barbearias2.push({ "distancia": distancia, "nome": nome });
+                      barbearias2.sort(sortFunction);
                     } else {
                       console.log(destination + ' is not reachable by land from ' + origin);
                     }
@@ -120,12 +108,19 @@ export class HomePage {
           function erro(error) {
             console.log(error)
           }
+          function sortFunction(a, b) {
+            if (a["distancia"] === b["distancia"]) {
+              return 0;
+            }
+            else {
+              return (a["distancia"] < b["distancia"]) ? -1 : 1;
+            }
+          }
 
-         
         })
 
       })
-      this.barbearias.sort();
+
 
 
   }
