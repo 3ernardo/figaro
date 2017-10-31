@@ -15,7 +15,7 @@ export class HomePage {
   myInput;
   myInputDois;
   barbearias = [];
-  bairroCidade;
+  
   
   // atributo fdb contem os dados do banco
   constructor(public navCtrl: NavController, private fdb: AngularFireDatabase) {
@@ -25,7 +25,8 @@ export class HomePage {
       
                   var geolocation = window.navigator.geolocation;
                   var posicaoAtual = geolocation.getCurrentPosition(this.retornaCidadeBairro);
-                  this.bairroCidade = this.retornaCidadeBairro;
+                 
+                  
       
                 } else {
                   alert('Geolocalização não suportada em seu navegador.')
@@ -56,7 +57,7 @@ export class HomePage {
         let district = data.results[0].address_components[2].short_name;
         let city = data.results[0].address_components[3].short_name;
         console.log(district);
-        //document.getElementById("localizacaoBairroCidade").innerHTML = district + " - " + city;
+        document.getElementById("localizacaoBairroCidade").innerHTML = district + " - " + city;
         retornaResultado = district + " - " + city;
         
         } else {
