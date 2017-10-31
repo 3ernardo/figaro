@@ -10,52 +10,89 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 
 
-
 export class HomePage {
   //Array onde serao intupados os dados
   myInput;
   myInputDois;
   barbearias = [];
-
-
-  //String que montara a URL de Rest para API do Maps
-
-
-
+  bairroCidade;
+  
   // atributo fdb contem os dados do banco
   constructor(public navCtrl: NavController, private fdb: AngularFireDatabase) {
     this.localizarUsuario();
-
+    
+    if (window.navigator && window.navigator.geolocation) {
+      
+                  var geolocation = window.navigator.geolocation;
+                  var posicaoAtual = geolocation.getCurrentPosition(this.retornaCidadeBairro);
+                  this.bairroCidade = this.retornaCidadeBairro;
+      
+                } else {
+                  alert('Geolocalização não suportada em seu navegador.')
+                }
+    
   }
 
 
   //inclui de acordo com o caminho.
   btnAddClickedDois() {
     this.fdb.list("/barbearias/la_mafia").push(this.myInputDois);
-
-
   }
 
+
+   retornaCidadeBairro(posicao) {
+    
+    var latitude = posicao.coords.latitude;
+    var longitude = posicao.coords.longitude;
+    var retornaResultado;
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyCHsz-mX3bLwuIlnRWV1gcEuXlT4ioQSzs', true);
+  
+    request.onload = function() {
+        if (request.status >= 200 && request.status < 400){
+        // Success!
+        let data = JSON.parse(request.responseText);
+        console.log(data);
+        let district = data.results[0].address_components[2].short_name;
+        let city = data.results[0].address_components[3].short_name;
+        console.log(district);
+        //document.getElementById("localizacaoBairroCidade").innerHTML = district + " - " + city;
+        retornaResultado = district + " - " + city;
+        
+        } else {
+        // We reached our target server, but it returned an error.
+        }
+        
+    };
+     
+    request.onerror = function() {
+        console.log("There was a connection error of some sort.");
+    };
+    
+    request.send();
+    return retornaResultado;
+    
+}
+ 
+
   public localizarUsuario() {
-
-
 
     this.fdb.list('/barbearias', { preserveSnapshot: true })
       .subscribe(snapshots => {
         snapshots.forEach(snapshot => {
           var localizacaoBarbearia;
+          var distanciaM;
           var barbearias2 = this.barbearias;
           var nome = snapshot.val().nome;
-
           localizacaoBarbearia = snapshot.val().localizacao;
-          //console.log(localizacaoBarbearia);
+        
 
-
-          if (window.navigator && window.navigator.geolocation) {
+          
+if (window.navigator && window.navigator.geolocation) {
 
             var geolocation = window.navigator.geolocation;
-            var posicaoAtual = geolocation.getCurrentPosition(sucesso, erro);
-     
+            var posicaoAtual = geolocation.getCurrentPosition(sucesso);
+
 
           } else {
             alert('Geolocalização não suportada em seu navegador.')
@@ -70,14 +107,11 @@ export class HomePage {
             //ENTRE DOIS PONTOS
             var distance = require('google-distance-matrix');
 
-            var origins = [latitude + "," + longitude];
-            // https://maps.googleapis.com/maps/api/geocode/json?latlng=-30.0352362,-51.2259691&key=AIzaSyCHsz-mX3bLwuIlnRWV1gcEuXlT4ioQSzs
-            // request para json com informações do local
-            var destinations = [localizacaoBarbearia];
+            var origins = [localizacaoBarbearia];
+            var destinations = [latitude + "," + longitude];
 
             distance.key('AIzaSyDl3kN1tvhtZMhXKy_zVmpnHmVty8PXYBg');
             distance.units('metric');
-
             distance.matrix(origins, destinations, function (err, distances) {
               if (err) {
                 return console.log(err);
@@ -92,46 +126,31 @@ export class HomePage {
                     var destination = distances.destination_addresses[j];
                     if (distances.rows[0].elements[j].status == 'OK') {
                       var distancia = distances.rows[i].elements[j].distance.value;
-                      barbearias2.push({ "distancia": distancia, "nome": nome });
+                      barbearias2.push({ "distancia": distancia = (Math.round(distancia/100))/10, "nome":nome });
                       barbearias2.sort(sortFunction);
                     } else {
                       console.log(destination + ' is not reachable by land from ' + origin);
                     }
                   }
                 }
-              }
-            });
-
-          }
-          //console.log('barb =  ' + barbearias2);
-
-          function erro(error) {
-            console.log(error)
-          }
-          function sortFunction(a, b) {
-            if (a["distancia"] === b["distancia"]) {
-              return 0;
-            }
-            else {
-              return (a["distancia"] < b["distancia"]) ? -1 : 1;
+                }
+                function sortFunction(a, b) {
+                  if (a["distancia"] === b["distancia"]) {
+                    return 0;
+                  }
+                  else {
+                    return (a["distancia"] < b["distancia"]) ? -1 : 1;
+                  }
+                }
+                
+                }
+              )
             }
           }
-
-        })
-
-      })
-
-
-
+        )
+      }
+    )
   }
+         
 
-
-
-
-  //deleta conforme o caminho com acao de clica
-  delete(i) {
-
-    this.fdb.list("/barbearias/la_mafia").remove();
-
-  }
 }

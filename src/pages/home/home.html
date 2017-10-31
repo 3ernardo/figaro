@@ -1,22 +1,26 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Busca</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-
- 
+<ion-content padding id="home">
+  <ion-item id="localizacaoBairroCidade" >
+    {{bairroCidade}}
+  </ion-item>
+  
   <ion-item *ngFor="let item of barbearias; let i = index">
-    <ion-icon ios="ios-home" md="md-home"></ion-icon> {{item.nome}}
+       {{item.nome}}  
     <div style="float:right">
 
-      <ion-icon ios="ios-navigate" md="md-navigate"></ion-icon> {{item.distancia }} M</div>
+      <ion-icon ios="ios-navigate" md="md-navigate">
+      </ion-icon> {{item.distancia }} Km</div>
 
   </ion-item>
 
-</ion-list>
+  <ion-list>
 
+  </ion-list>
  
+
 </ion-content>
