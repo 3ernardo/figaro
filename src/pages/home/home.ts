@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
 import { AngularFireDatabase } from 'angularfire2/database';
-
+import { ContactPage } from '../contact/contact'
 
 @Component({
   selector: 'page-home',
@@ -32,6 +31,12 @@ export class HomePage {
                   alert('Geolocalização não suportada em seu navegador.')
                 }
     
+  }
+
+  //vai para barbeariasDetail...
+  barbeariaDetail(params){
+    if (!params) params = {};
+    this.navCtrl.push(ContactPage);
   }
 
 

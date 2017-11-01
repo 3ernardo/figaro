@@ -5,15 +5,13 @@
 </ion-header>
 
 <ion-content padding id="home">
-  
 
-  
   <ion-item id="localizacaoBairroCidade" >
       
   </ion-item>
   <ion-img width="30" height="30"  id="iconeLocalizacao" src="https://www.iconexperience.com/_img/i_collection_png/256x256/plain/location_pin.png"></ion-img>
   
-  <ion-item *ngFor="let item of barbearias; let i = index">
+  <ion-item *ngFor="let item of barbearias; let i = index" on-click="barbeariaDetail()">
        {{item.nome}}  
     <div style="float:right">
 
@@ -21,7 +19,6 @@
       </ion-icon> {{item.distancia }} Km</div>
 
   </ion-item>
-
   <ion-list>
 
   </ion-list>
