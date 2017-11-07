@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { BarbeariaDetailPage } from '../barbeariaDetail/barbeariaDetail'
+import { CrudBarbeariasService } from '../../app/crud-barbearias.service';
+
 
 @Component({
   selector: 'page-home',
@@ -17,7 +19,7 @@ export class HomePage {
   
   
   // atributo fdb contem os dados do banco
-  constructor(public navCtrl: NavController, private fdb: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, private fdb: AngularFireDatabase,private service:CrudBarbeariasService) {
     this.localizarUsuario();
     
     if (window.navigator && window.navigator.geolocation) {
@@ -33,11 +35,13 @@ export class HomePage {
     
   }
 
+  barbeariaDetailAtual;
+
   //vai para barbeariasDetail...
   barbeariaDetail(params){
     if (!params) params = {};
+    this.service.armazenaBarbearia(params);
     this.navCtrl.push(BarbeariaDetailPage);
-
   }
 
 

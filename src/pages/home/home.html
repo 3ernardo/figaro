@@ -11,7 +11,7 @@
   </ion-item>
   <ion-img width="30" height="30"  id="iconeLocalizacao" src="https://www.iconexperience.com/_img/i_collection_png/256x256/plain/location_pin.png"></ion-img>
   
-  <ion-item *ngFor="let item of barbearias; let i = index" on-click="barbeariaDetail()">
+  <ion-item *ngFor="let item of barbearias; let i = index" on-click="barbeariaDetail(this.item)">
        {{item.nome}}  
     <div style="float:right">
 

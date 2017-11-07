@@ -15,6 +15,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+import{ CrudBarbeariasService } from './crud-barbearias.service';
+
 var config = {
     apiKey: "AIzaSyBhoUgnF8fWv8u7_RnnDZiXh2y7-wyH21c",
     authDomain: "app-barbearia.firebaseapp.com",
@@ -53,6 +55,7 @@ var config = {
   providers: [
     StatusBar,
     SplashScreen,
+    CrudBarbeariasService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
