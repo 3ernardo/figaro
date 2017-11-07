@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { ContactPage } from '../contact/contact'
+import { BarbeariaDetailPage } from '../barbeariaDetail/barbeariaDetail'
 
 @Component({
   selector: 'page-home',
@@ -36,7 +36,8 @@ export class HomePage {
   //vai para barbeariasDetail...
   barbeariaDetail(params){
     if (!params) params = {};
-    this.navCtrl.push(ContactPage);
+    this.navCtrl.push(BarbeariaDetailPage);
+
   }
 
 
