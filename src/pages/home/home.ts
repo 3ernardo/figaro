@@ -3,7 +3,6 @@ import { NavController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { BarbeariaDetailPage } from '../barbeariaDetail/barbeariaDetail'
 import { CrudBarbeariasService } from '../../app/crud-barbearias.service';
-import { SecondPage } from '../second/second';
 
 
 @Component({
@@ -167,9 +166,5 @@ export class HomePage {
       )
   }
 
-
-  detailsPage(id) {
-    this.navCtrl.push(SecondPage, { code: id });
-  }
 
 }

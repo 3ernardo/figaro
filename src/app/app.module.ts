@@ -16,7 +16,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import{ CrudBarbeariasService } from './crud-barbearias.service';
-import { SecondPage} from '../pages/second/second';
 
 var config = {
     apiKey: "AIzaSyBhoUgnF8fWv8u7_RnnDZiXh2y7-wyH21c",
@@ -34,8 +33,7 @@ var config = {
     ContactPage,
     HomePage,
     TabsPage,
-    BarbeariaDetailPage,
-    SecondPage
+    BarbeariaDetailPage
   ],
   imports: [
     BrowserModule,
@@ -52,14 +50,12 @@ var config = {
     ContactPage,
     HomePage,
     TabsPage,
-    BarbeariaDetailPage,
-    SecondPage
+    BarbeariaDetailPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     CrudBarbeariasService,
-    SecondPage,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
