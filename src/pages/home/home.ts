@@ -16,32 +16,33 @@ export class HomePage {
   myInput;
   myInputDois;
   barbearias = [];
-  
-  
+
+
   // atributo fdb contem os dados do banco
-  constructor(public navCtrl: NavController, private fdb: AngularFireDatabase,private service:CrudBarbeariasService) {
+  constructor(public navCtrl: NavController, private fdb: AngularFireDatabase, private service: CrudBarbeariasService) {
     this.localizarUsuario();
-    
+
     if (window.navigator && window.navigator.geolocation) {
-      
-                  var geolocation = window.navigator.geolocation;
-                  var posicaoAtual = geolocation.getCurrentPosition(this.retornaCidadeBairro);
-                 
-                  
-      
-                } else {
-                  alert('Geolocalização não suportada em seu navegador.')
-                }
-    
+
+      var geolocation = window.navigator.geolocation;
+      var posicaoAtual = geolocation.getCurrentPosition(this.retornaCidadeBairro);
+
+
+
+    } else {
+      alert('Geolocalização não suportada em seu navegador.')
+    }
+
   }
 
   barbeariaDetailAtual;
 
   //vai para barbeariasDetail...
-  barbeariaDetail(params){
+  barbeariaDetail(params) {
     if (!params) params = {};
-    this.service.armazenaBarbearia(params);
-    this.navCtrl.push(BarbeariaDetailPage);
+
+
+    this.navCtrl.push(BarbeariaDetailPage, { obj: params });
   }
 
 
@@ -51,40 +52,38 @@ export class HomePage {
   }
 
 
-   retornaCidadeBairro(posicao) {
-    
+  retornaCidadeBairro(posicao) {
+
     var latitude = posicao.coords.latitude;
     var longitude = posicao.coords.longitude;
     var retornaResultado;
     var request = new XMLHttpRequest();
     request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyCHsz-mX3bLwuIlnRWV1gcEuXlT4ioQSzs', true);
-  
-    request.onload = function() {
-        if (request.status >= 200 && request.status < 400){
+
+    request.onload = function () {
+      if (request.status >= 200 && request.status < 400) {
         // Success!
         let data = JSON.parse(request.responseText);
-        console.log(data);
         let district = data.results[0].address_components[2].short_name;
         let city = data.results[0].address_components[3].short_name;
-        console.log(district);
         document.getElementById("localizacaoBairroCidade").innerHTML = district + " - " + city;
         retornaResultado = district + " - " + city;
-        
-        } else {
+
+      } else {
         // We reached our target server, but it returned an error.
-        }
-        
+      }
+
     };
-     
-    request.onerror = function() {
-        console.log("There was a connection error of some sort.");
+
+    request.onerror = function () {
+      console.log("There was a connection error of some sort.");
     };
-    
+
     request.send();
     return retornaResultado;
-    
-}
- 
+
+  }
+
 
   public localizarUsuario() {
 
@@ -95,11 +94,10 @@ export class HomePage {
           var distanciaM;
           var barbearias2 = this.barbearias;
           var nome = snapshot.val().nome;
+          var logradouro = snapshot.val().logradouro;
           localizacaoBarbearia = snapshot.val().localizacao;
-        
 
-          
-if (window.navigator && window.navigator.geolocation) {
+          if (window.navigator && window.navigator.geolocation) {
 
             var geolocation = window.navigator.geolocation;
             var posicaoAtual = geolocation.getCurrentPosition(sucesso);
@@ -137,31 +135,36 @@ if (window.navigator && window.navigator.geolocation) {
                     var destination = distances.destination_addresses[j];
                     if (distances.rows[0].elements[j].status == 'OK') {
                       var distancia = distances.rows[i].elements[j].distance.value;
-                      barbearias2.push({ "distancia": distancia = (Math.round(distancia/100))/10, "nome":nome });
+                      barbearias2.push(
+                        {
+                          "distancia": (Math.round(distancia / 100)) / 10,
+                          "nome": nome,
+                          "logradouro": logradouro
+                        });
                       barbearias2.sort(sortFunction);
                     } else {
                       console.log(destination + ' is not reachable by land from ' + origin);
                     }
                   }
                 }
+              }
+              function sortFunction(a, b) {
+                if (a["distancia"] === b["distancia"]) {
+                  return 0;
                 }
-                function sortFunction(a, b) {
-                  if (a["distancia"] === b["distancia"]) {
-                    return 0;
-                  }
-                  else {
-                    return (a["distancia"] < b["distancia"]) ? -1 : 1;
-                  }
+                else {
+                  return (a["distancia"] < b["distancia"]) ? -1 : 1;
                 }
-                
-                }
-              )
+              }
+
             }
+            )
           }
+        }
         )
       }
-    )
+      )
   }
-         
+
 
 }

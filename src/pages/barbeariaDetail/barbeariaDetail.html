@@ -1,13 +1,20 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>Detalhes</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding id="detalhes">
+  <ion-navbar>
+    <ion-title>Detalhes da Barbearia</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding id="detalhes">
+
   <ion-item>
-        TESTE DE BARBEARIA DETAIL...
-        
-         
-  </ion-item>  
-  </ion-content>
+    {{nome}}
+  </ion-item>
+  <ion-item>
+    <ion-icon ios="ios-home" md="md-home"></ion-icon> {{logradouro}}
+  </ion-item>
+  <button ion-button> Agendar horário 
+    <ion-icon name="md-alarm"></ion-icon>
+  </button>
+
+
+</ion-content>
