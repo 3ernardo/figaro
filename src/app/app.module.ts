@@ -8,6 +8,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { BarbeariaDetailPage} from '../pages/barbeariaDetail/barbeariaDetail';
+import { AgendamentoPage} from '../pages/agendamento/agendamento';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +34,8 @@ var config = {
     ContactPage,
     HomePage,
     TabsPage,
-    BarbeariaDetailPage
+    BarbeariaDetailPage,
+    AgendamentoPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ var config = {
     ContactPage,
     HomePage,
     TabsPage,
-    BarbeariaDetailPage
+    BarbeariaDetailPage,
+    AgendamentoPage
   ],
   providers: [
     StatusBar,
