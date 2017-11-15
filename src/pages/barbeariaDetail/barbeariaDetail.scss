@@ -1,0 +1,39 @@
+page-barbeariaDetail{
+#detalhes{
+    background-image: url("https://i.imgur.com/ODC48YM.png");
+    background-size:     cover;                     
+    background-repeat:   no-repeat;
+    background-position: center center;
+    }
+#nome{
+    position: relative;
+    align-items: center;
+    font-size: 20px;
+    text-align: center;
+    padding-right: 20px;
+    margin-top: 150px;
+}
+#endereco{
+    position: relative;
+    align-items: center;
+    font-size: 15px;
+    text-align: center;
+    padding-right: 20px;
+}
+#iconAgendarHorario{
+    position: relative;
+    padding-left: 10px;
+}
+#botaoAgendar{
+   margin-top: 30px;
+}
+#fotoBarbearia{
+    width:50%;
+    height:50%;
+    position: absolute;
+    top: 0; bottom: 80;
+    left: 0; right: 0;
+    margin: auto;
+    
+}
+}

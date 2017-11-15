@@ -94,7 +94,9 @@ export class HomePage {
           var distanciaM;
           var barbearias2 = this.barbearias;
           var nome = snapshot.val().nome;
+          var foto = snapshot.val().foto;
           var logradouro = snapshot.val().logradouro;
+          var servicos = snapshot.val().servicos;
           localizacaoBarbearia = snapshot.val().localizacao;
 
           if (window.navigator && window.navigator.geolocation) {
@@ -139,7 +141,9 @@ export class HomePage {
                         {
                           "distancia": (Math.round(distancia / 100)) / 10,
                           "nome": nome,
-                          "logradouro": logradouro
+                          "logradouro": logradouro,
+                          "foto": foto,
+                          "servicos": servicos
                         });
                       barbearias2.sort(sortFunction);
                     } else {

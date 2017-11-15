@@ -5,16 +5,22 @@
 </ion-header>
 
 <ion-content padding id="detalhes">
-
-  <ion-item>
+    <ion-img width="150" height="150"  id="fotoBarbearia" src="{{foto}}"></ion-img>
+   
+  <ion-item id="nome">
     {{nome}}
   </ion-item>
-  <ion-item>
+  <ion-item id="endereco">
     <ion-icon ios="ios-home" md="md-home"></ion-icon> {{logradouro}}
   </ion-item>
-  <button ion-button> Agendar horário 
-    <ion-icon name="md-alarm"></ion-icon>
+  <ion-item id="servicos">
+    {{servicos}}
+  </ion-item>
+  <button ion-button block id="botaoAgendar"> Agendar horário 
+    <ion-icon name="md-alarm" id="iconAgendarHorario"></ion-icon>
+    
   </button>
+
 
 
 </ion-content>
