@@ -13,7 +13,7 @@ export class BarbeariaDetailPage {
 nome; 
 logradouro; 
 foto; 
-servicos; 
+servicos;
 obj;
   constructor(public navCtrl: NavController, public NavParams : NavParams) {
      this.obj = this.NavParams.data.obj;
