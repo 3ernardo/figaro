@@ -12,7 +12,7 @@ export class BarbeariaDetailPage {
   
 nome; 
 logradouro; 
-foto; 
+foto;  
 servicos;
 obj;
   constructor(public navCtrl: NavController, public NavParams : NavParams) {

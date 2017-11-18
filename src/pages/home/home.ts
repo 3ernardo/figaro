@@ -8,7 +8,7 @@ import { CrudBarbeariasService } from '../../app/crud-barbearias.service';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
-})
+}) 
 
 
 export class HomePage {
@@ -21,6 +21,7 @@ export class HomePage {
   // atributo fdb contem os dados do banco
   constructor(public navCtrl: NavController, private fdb: AngularFireDatabase, private service: CrudBarbeariasService) {
     this.localizarUsuario();
+
 
     if (window.navigator && window.navigator.geolocation) {
 

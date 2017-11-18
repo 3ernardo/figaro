@@ -13,17 +13,25 @@
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content padding> 
 
   <ion-item>
+    <ion-label>Horários</ion-label>
+    <ion-select [(ngModel)]="hora">
+      <ion-option value="{{horario}}" *ngFor="let horario of horarios"> {{horario}}</ion-option>
+      <!-- <ion-option value="08" > 08</ion-option> -->
+
+    </ion-select>
+  </ion-item>
+
+  <!-- <ion-item>
     <ion-label>Horários</ion-label>
     <ion-select [(ngModel)]="horarios">
         <ion-option value="horario"  *ngFor="let horario of horarios"> {{horario}}</ion-option>
     </ion-select>
-  </ion-item>
+  </ion-item> -->
 
-  <button ion-button block on-click="salvarAgendamento(nome)">
+  <button ion-button block on-click="salvarAgendamento(hora)">
     <ion-icon ios="ios-checkbox" md="md-checkbox"></ion-icon> Salvar
 
   </button>
