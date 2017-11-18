@@ -34,9 +34,10 @@ export class AgendamentoPage {
 
 
     for (this.horario_de; this.horario_de <= this.horario_ate; this.horario_de++) {
-    //  if (this.horario_de > h) {
+
+      if (this.horario_de > h) {
         this.horarios.push(this.horario_de);
-      //}
+      }
 
     }
 
