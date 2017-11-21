@@ -1,0 +1,38 @@
+<!--
+  Generated template for the AgendamentoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Agendamento</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding> 
+
+  <ion-item>
+    <ion-label>Horários</ion-label>
+    <ion-select [(ngModel)]="hora">
+      <ion-option value="{{horario}}" *ngFor="let horario of horarios"> {{horario}}</ion-option>
+      <!-- <ion-option value="08" > 08</ion-option> -->
+
+    </ion-select>
+  </ion-item>
+
+  <!-- <ion-item>
+    <ion-label>Horários</ion-label>
+    <ion-select [(ngModel)]="horarios">
+        <ion-option value="horario"  *ngFor="let horario of horarios"> {{horario}}</ion-option>
+    </ion-select>
+  </ion-item> -->
+
+  <button ion-button block on-click="salvarAgendamento(hora)">
+    <ion-icon ios="ios-checkbox" md="md-checkbox"></ion-icon> Salvar
+
+  </button>
+</ion-content>

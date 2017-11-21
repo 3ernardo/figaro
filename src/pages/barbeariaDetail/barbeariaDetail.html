@@ -12,11 +12,12 @@
   </ion-item>
   <ion-item id="endereco">
     <ion-icon ios="ios-home" md="md-home"></ion-icon> {{logradouro}}
-  </ion-item>
+  </ion-item> 
   <ion-item id="servicos">
     {{servicos}}
   </ion-item>
-  <button ion-button block id="botaoAgendar"> Agendar horário 
+
+  <button ion-button block  on-click="agendamento(obj)"> Agendar horário 
     <ion-icon name="md-alarm" id="iconAgendarHorario"></ion-icon>
     
   </button>

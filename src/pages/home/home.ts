@@ -8,7 +8,7 @@ import { CrudBarbeariasService } from '../../app/crud-barbearias.service';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
-})
+}) 
 
 
 export class HomePage {
@@ -21,6 +21,7 @@ export class HomePage {
   // atributo fdb contem os dados do banco
   constructor(public navCtrl: NavController, private fdb: AngularFireDatabase, private service: CrudBarbeariasService) {
     this.localizarUsuario();
+
 
     if (window.navigator && window.navigator.geolocation) {
 
@@ -40,8 +41,6 @@ export class HomePage {
   //vai para barbeariasDetail...
   barbeariaDetail(params) {
     if (!params) params = {};
-
-
     this.navCtrl.push(BarbeariaDetailPage, { obj: params });
   }
 
@@ -97,6 +96,8 @@ export class HomePage {
           var foto = snapshot.val().foto;
           var logradouro = snapshot.val().logradouro;
           var servicos = snapshot.val().servicos;
+          var horario_de = snapshot.val().horario_de;
+          var horario_ate = snapshot.val().horario_ate;
           localizacaoBarbearia = snapshot.val().localizacao;
 
           if (window.navigator && window.navigator.geolocation) {
@@ -143,7 +144,9 @@ export class HomePage {
                           "nome": nome,
                           "logradouro": logradouro,
                           "foto": foto,
-                          "servicos": servicos
+                          "servicos": servicos,
+                          "horario_ate": horario_ate,
+                          "horario_de": horario_de
                         });
                       barbearias2.sort(sortFunction);
                     } else {
