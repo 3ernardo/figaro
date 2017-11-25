@@ -21,6 +21,7 @@ export class AgendamentoPage {
   horario_de;
   horario_ate;
   horarios = [];
+  data;
   constructor(public navCtrl: NavController, public NavParams: NavParams, private fdb: AngularFireDatabase) {
     this.obj = this.NavParams.data.obj;
     this.nome = this.NavParams.data.obj.nome;
@@ -29,6 +30,7 @@ export class AgendamentoPage {
     this.horario_ate = this.NavParams.data.obj.horario_ate;
 
     var d = new Date();
+    this.data = d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
     var h = d.getHours();
     var m = d.getMinutes();
 
@@ -36,7 +38,10 @@ export class AgendamentoPage {
     for (this.horario_de; this.horario_de <= this.horario_ate; this.horario_de++) {
 
       if (this.horario_de > h) {
-        this.horarios.push(this.horario_de);
+
+        this.horarios.push(this.horario_de + ":00");
+
+        this.horarios.push(this.horario_de + ":30");
       }
 
     }
@@ -48,14 +53,30 @@ export class AgendamentoPage {
     console.log(mySelect);
   }
 
-  salvarAgendamento(horario) {
+  salvarAgendamento(horario, servico) {
 
-    this.fdb.list("/agendamentos/").push({ horario: horario, nome: this.nome });
+    if (servico == "barbaEcabelo") {
+      if (horario.substr(3, 2) == "00") {
+        horario = horario.substr(0, 2) + "30";
+      } else {
+        var novaHora = horario.substr(0, 2) + 1;
+        horario = novaHora + ":00";
+      }
 
 
-    this.navCtrl.popToRoot();
+
+
+      this.fdb.list("/agendamentos/").push({
+        horario: horario,
+        nome: this.nome,
+        data: this.data,
+        servico: servico,
+      });
+
+
+      this.navCtrl.popToRoot();
+    }
+
+
+
   }
-
-
-
-}

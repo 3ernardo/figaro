@@ -19,20 +19,21 @@
     <ion-label>Horários</ion-label>
     <ion-select [(ngModel)]="hora">
       <ion-option value="{{horario}}" *ngFor="let horario of horarios"> {{horario}}</ion-option>
-      <!-- <ion-option value="08" > 08</ion-option> -->
-
-    </ion-select>
+     </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Serviço</ion-label>
+    <ion-select [(ngModel)]="servico">
+      <ion-option value="barba" > BARBA</ion-option>
+      <ion-option value="cabelo"> CABELO</ion-option>
+      <ion-option value="barbaEcabelo" > BARBA E CABELO</ion-option>
+     </ion-select>
   </ion-item>
 
-  <!-- <ion-item>
-    <ion-label>Horários</ion-label>
-    <ion-select [(ngModel)]="horarios">
-        <ion-option value="horario"  *ngFor="let horario of horarios"> {{horario}}</ion-option>
-    </ion-select>
-  </ion-item> -->
-
-  <button ion-button block on-click="salvarAgendamento(hora)">
+  <button ion-button block on-click="salvarAgendamento(hora,servico)">
     <ion-icon ios="ios-checkbox" md="md-checkbox"></ion-icon> Salvar
 
   </button>
+
+
 </ion-content>

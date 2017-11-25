@@ -5,23 +5,30 @@
 </ion-header>
 
 <ion-content padding id="detalhes">
-    <ion-img width="150" height="150"  id="fotoBarbearia" src="{{foto}}"></ion-img>
-   
+  <ion-img width="150" height="150" id="fotoBarbearia" src="{{foto}}"></ion-img>
+
   <ion-item id="nome">
     {{nome}}
   </ion-item>
   <ion-item id="endereco">
     <ion-icon ios="ios-home" md="md-home"></ion-icon> {{logradouro}}
-  </ion-item> 
+  </ion-item>
   <ion-item id="servicos">
     {{servicos}}
   </ion-item>
 
-  <button ion-button block  on-click="agendamento(obj)"> Agendar horário 
-    <ion-icon name="md-alarm" id="iconAgendarHorario"></ion-icon>
-    
-  </button>
+  <ion-item>
+    Horários de atendimento : {{horariosAtendimento}}
+  </ion-item>
 
+
+
+  <div ng-if="horarios.length > 0 ">
+    <button ion-button block on-click="agendamento(obj)" id="botaoAgendar"> Agendar horário
+      <ion-icon name="md-alarm" id="iconAgendarHorario"></ion-icon>
+
+    </button>
+  </div>
 
 
 </ion-content>
