@@ -51,8 +51,6 @@ export class BarbeariaDetailPage {
       }
     }
 
-    console.log(this.horarios);
-    console.log('tamanho = ' + this.horarios.length);
 
   }
 

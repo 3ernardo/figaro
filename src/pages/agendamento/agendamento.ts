@@ -22,6 +22,7 @@ export class AgendamentoPage {
   horario_ate;
   horarios = [];
   data;
+
   constructor(public navCtrl: NavController, public NavParams: NavParams, private fdb: AngularFireDatabase) {
     this.obj = this.NavParams.data.obj;
     this.nome = this.NavParams.data.obj.nome;
@@ -47,36 +48,69 @@ export class AgendamentoPage {
     }
 
 
+  
+    //busca os agendamentos
+    this.fdb.list('/agendamentos/' + this.nome + "/", { preserveSnapshot: true })
+      .subscribe(snapshots => {
+        snapshots.forEach(snapshot => {
+         // console.log(snapshot.val().data)
+          if (this.data == snapshot.val().data) {
+            var index = this.horarios.indexOf(snapshot.val().horario);
+            if (index > -1) {
+              this.horarios.splice(index, 1);
+             // console.log("horario  " + snapshot.val().horario + "removido!");
+            }
+          }
+
+        })
+      })
+
+
 
   }
-  showSelectValue = function (mySelect) {
-    console.log(mySelect);
-  }
+
 
   salvarAgendamento(horario, servico) {
 
+    if (horario == "undefined" || servico == "undefined") {
+      alert("selecione todos os campos");
+    }
+
+
+    var duracao;
     if (servico == "barbaEcabelo") {
-      if (horario.substr(3, 2) == "00") {
-        horario = horario.substr(0, 2) + "30";
-      } else {
-        var novaHora = horario.substr(0, 2) + 1;
-        horario = novaHora + ":00";
-      }
-
-
-
-
-      this.fdb.list("/agendamentos/").push({
-        horario: horario,
-        nome: this.nome,
-        data: this.data,
-        servico: servico,
-      });
-
-
-      this.navCtrl.popToRoot();
+      duracao = "1h";
+    } else {
+      duracao = "30min"
     }
 
 
 
+
+    this.fdb.list("/agendamentos/" + this.nome + "/").push({
+      horario: horario,
+      duracao: duracao,
+      nome: this.nome,
+      data: this.data,
+      servico: servico,
+    });
+
+
+    this.navCtrl.popToRoot();
   }
+
+
+  buscaAgendamentos() {
+    var arrayAgendamentos = [];
+    this.fdb.list('/agendamentos', { preserveSnapshot: true })
+      .subscribe(snapshots => {
+        snapshots.forEach(snapshot => {
+
+          arrayAgendamentos.push({
+            "nome": snapshot.val().nome
+          });
+        })
+      })
+
+  }
+}
