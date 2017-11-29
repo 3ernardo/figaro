@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { BarbeariaDetailPage } from '../barbeariaDetail/barbeariaDetail'
 import { CrudBarbeariasService } from '../../app/crud-barbearias.service';
+
 
 
 @Component({
@@ -19,7 +20,8 @@ export class HomePage {
 
 
   // atributo fdb contem os dados do banco
-  constructor(public navCtrl: NavController, private fdb: AngularFireDatabase, private service: CrudBarbeariasService) {
+  constructor(public navCtrl: NavController, private fdb: AngularFireDatabase, private service: CrudBarbeariasService, public NavParams: NavParams) {
+    
     this.localizarUsuario();
 
 
@@ -94,6 +96,7 @@ export class HomePage {
           var barbearias2 = this.barbearias;
           var nome = snapshot.val().nome;
           var foto = snapshot.val().foto;
+          var nota = snapshot.val().nota;
           var logradouro = snapshot.val().logradouro;
           var servicos = snapshot.val().servicos;
           var horario_de = snapshot.val().horario_de;
@@ -144,14 +147,17 @@ export class HomePage {
                           "nome": nome,
                           "logradouro": logradouro,
                           "foto": foto,
+                          "nota": nota,
                           "servicos": servicos,
                           "horario_ate": horario_ate,
                           "horario_de": horario_de
                         });
                       barbearias2.sort(sortFunction);
-                    } else {
+                    } 
+                    else {
                       console.log(destination + ' is not reachable by land from ' + origin);
                     }
+
                   }
                 }
               }
