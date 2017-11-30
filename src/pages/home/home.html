@@ -1,13 +1,13 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Busca</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding id="home">
-
+  
   <ion-item id="localizacaoBairroCidade" >
-      
+  
   </ion-item>
   <ion-img width="30" height="30"  id="iconeLocalizacao" src="https://www.iconexperience.com/_img/i_collection_png/256x256/plain/location_pin.png"></ion-img>
   
@@ -18,11 +18,16 @@
               <img src="{{item.foto}}">
             </ion-thumbnail>
         <h2>{{item.nome}}</h2>
-        <h3>
+        <h3 id="distancia">
             {{item.distancia }} Km
             <ion-icon ios="ios-navigate" md="md-navigate"></ion-icon>
         </h3>
-        <p>Nota: {{item.nota}}</p>
+        <p>{{item.logradouro}}</p>
+        <h3 id="estrelas"> <img width="15" height="15" src="https://i.imgur.com/RJcqT9u.png">{{item.nota}} </h3>
+        
+          
+        
+        
       </ion-item>
     </ion-list>
  

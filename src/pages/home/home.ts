@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { BarbeariaDetailPage } from '../barbeariaDetail/barbeariaDetail'
 import { CrudBarbeariasService } from '../../app/crud-barbearias.service';
-
+import { url } from 'inspector';
+import { AngularFireAuth} from 'angularfire2/auth';
 
 
 @Component({
@@ -20,7 +21,11 @@ export class HomePage {
 
 
   // atributo fdb contem os dados do banco
-  constructor(public navCtrl: NavController, private fdb: AngularFireDatabase, private service: CrudBarbeariasService, public NavParams: NavParams) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    public navCtrl: NavController, private fdb: AngularFireDatabase,
+    private service: CrudBarbeariasService, public NavParams: NavParams,
+    private toast: ToastController) {
     
     this.localizarUsuario();
 
@@ -36,6 +41,25 @@ export class HomePage {
       alert('Geolocalização não suportada em seu navegador.')
     }
 
+     this.retornaEstrelas();
+
+  }
+
+  ionViewWillLoad(){
+    this.afAuth.authState.subscribe(data => {
+      if(data && data.email && data.uid){
+        this.toast.create({
+          message: `Bem Vindo, ${data.email}`,
+          duration: 6000
+        }).present();
+    }
+    else{
+      this.toast.create({
+        message: 'Ops, você não esta logado.',
+        duration: 6000
+      }).present();
+    }
+    });
   }
 
   barbeariaDetailAtual;
@@ -46,6 +70,26 @@ export class HomePage {
     this.navCtrl.push(BarbeariaDetailPage, { obj: params });
   }
 
+  urlEstrelaMaster;
+   //retorna estrelas
+    retornaEstrelas(){
+    var urlEstrela;
+
+      this.fdb.list('/barbearias', { preserveSnapshot: true })
+    .subscribe(snapshots => {
+      snapshots.forEach(snapshot => {
+        var nota = snapshot.val().nota;
+        if(nota > "4,0"){
+          urlEstrela = 'http://www.uninorte.com.br/wp-content/uploads/2015/09/5-estrela.png';
+        }
+        this.urlEstrelaMaster = urlEstrela;
+      }
+    )
+  }
+
+    
+    )
+}
 
   //inclui de acordo com o caminho.
   btnAddClickedDois() {
