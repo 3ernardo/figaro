@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AngularFireAuth} from 'angularfire2/auth';
 import { HomePage } from '../home/home';
+import * as firebase from 'firebase'; 
 
 /**
  * Generated class for the LoginPage page.
@@ -34,6 +35,17 @@ export class LoginPage {
     console.log(e);
     alert("Usuário ou senha incorretos");
   }
+}
+
+googleLogin(params){
+  this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
+    console.log(user);
+    if (!params) params = {};
+    this.navCtrl.push(HomePage, { obj: params });
+  }
+  ).catch(err =>  {
+    alert(err.message);
+  })
 }
 
   register(){
