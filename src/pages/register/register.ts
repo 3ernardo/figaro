@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user';
 import {AngularFireAuth} from 'angularfire2/auth';
+import { LoginPage } from '../login/login';
 
 
 /**
@@ -26,10 +27,13 @@ export class RegisterPage {
 
 
 
-  async register(user: User){
+  async register(user: User, params){
     try{
     const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.senha);
     console.log(result);
+    alert("Cadastro efetuado com sucesso!");
+    // if (!params) params = {};
+    // this.navCtrl.push(LoginPage, { obj: params });
     }
     catch(e){
       console.log(e);

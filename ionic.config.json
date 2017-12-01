@@ -4,5 +4,10 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path":"/home",
+      "proxyUrl": "https://maps.googleapis.com/maps/api/distancematrix"
+    }]
 }

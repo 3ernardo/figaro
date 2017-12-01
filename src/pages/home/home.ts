@@ -5,6 +5,7 @@ import { BarbeariaDetailPage } from '../barbeariaDetail/barbeariaDetail'
 import { CrudBarbeariasService } from '../../app/crud-barbearias.service';
 import { url } from 'inspector';
 import { AngularFireAuth} from 'angularfire2/auth';
+import { Header } from 'ionic-angular/components/toolbar/toolbar-header';
 
 
 @Component({
@@ -164,11 +165,11 @@ export class HomePage {
 
             //FUNÇÃO QUE USA API MATRIX GOOGLE MAPS PARA RETORNAR A DISTANCIA EM Km 
             //ENTRE DOIS PONTOS
+           
             var distance = require('google-distance-matrix');
 
             var origins = [localizacaoBarbearia];
             var destinations = [latitude + "," + longitude];
-
             distance.key('AIzaSyDl3kN1tvhtZMhXKy_zVmpnHmVty8PXYBg');
             distance.units('metric');
             distance.matrix(origins, destinations, function (err, distances) {
