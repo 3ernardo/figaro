@@ -3,14 +3,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { LoginPage } from '../login/login';
-
-
+import * as swal from 'sweetalert2'
 /**
  * Generated class for the RegisterPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
- */
+ */ 
 
 @IonicPage()
 @Component({
@@ -31,9 +30,16 @@ export class RegisterPage {
     try{
     const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.senha);
     console.log(result);
-    alert("Cadastro efetuado com sucesso!");
-    // if (!params) params = {};
-    // this.navCtrl.push(LoginPage, { obj: params });
+    
+    const swal = require('sweetalert2')
+    
+      swal(
+        'Parabéns!',
+        'Você está cadastrado.',
+        'success'
+      )
+    
+    
     this.navCtrl.push('LoginPage');
     }
     catch(e){

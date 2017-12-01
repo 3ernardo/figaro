@@ -43,6 +43,8 @@
     "replace": "^0.3.0",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
+    "sweetalert": "^2.0.8",
+    "sweetalert2": "^7.0.6",
     "zone.js": "0.8.12"
   },
   "devDependencies": {
