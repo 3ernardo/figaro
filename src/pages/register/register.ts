@@ -34,6 +34,7 @@ export class RegisterPage {
     alert("Cadastro efetuado com sucesso!");
     // if (!params) params = {};
     // this.navCtrl.push(LoginPage, { obj: params });
+    this.navCtrl.push('LoginPage');
     }
     catch(e){
       console.log(e);
