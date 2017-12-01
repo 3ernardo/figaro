@@ -44,7 +44,13 @@ export class RegisterPage {
     }
     catch(e){
       console.log(e);
-      alert("O Email deve conter @ e .com / A senha deve no mínimo 6 caracteres.");
+      const swal = require('sweetalert2')
+
+      swal(
+        'Oops...',
+        'O Email deve conter @ e .com / A senha deve no mínimo 6 caracteres.',
+        'error'
+      )
     }
   }
 }
