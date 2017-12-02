@@ -41,7 +41,7 @@ export class AgendamentoPage {
       if (this.horario_de > h) {
 
         this.horarios.push(this.horario_de + ":00");
-
+  
         this.horarios.push(this.horario_de + ":30");
       }
 

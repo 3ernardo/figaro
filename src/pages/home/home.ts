@@ -4,14 +4,14 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { BarbeariaDetailPage } from '../barbeariaDetail/barbeariaDetail'
 import { CrudBarbeariasService } from '../../app/crud-barbearias.service';
 import { url } from 'inspector';
-import { AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Header } from 'ionic-angular/components/toolbar/toolbar-header';
 
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
-}) 
+})
 
 
 export class HomePage {
@@ -27,7 +27,7 @@ export class HomePage {
     public navCtrl: NavController, private fdb: AngularFireDatabase,
     private service: CrudBarbeariasService, public NavParams: NavParams,
     private toast: ToastController) {
-    
+
     this.localizarUsuario();
 
 
@@ -42,24 +42,24 @@ export class HomePage {
       alert('Geolocalização não suportada em seu navegador.')
     }
 
-     this.retornaEstrelas();
+    this.retornaEstrelas();
 
   }
 
-  ionViewWillLoad(){
+  ionViewWillLoad() {
     this.afAuth.authState.subscribe(data => {
-      if(data && data.email && data.uid){
+      if (data && data.email && data.uid) {
         this.toast.create({
           message: `Bem Vindo, ${data.email}`,
           duration: 6000
         }).present();
-    }
-    else{
-      this.toast.create({
-        message: 'Ops, você não esta logado.',
-        duration: 6000
-      }).present();
-    }
+      }
+      else {
+        this.toast.create({
+          message: 'Ops, você não esta logado.',
+          duration: 6000
+        }).present();
+      }
     });
   }
 
@@ -72,25 +72,25 @@ export class HomePage {
   }
 
   urlEstrelaMaster;
-   //retorna estrelas
-    retornaEstrelas(){
+  //retorna estrelas
+  retornaEstrelas() {
     var urlEstrela;
 
-      this.fdb.list('/barbearias', { preserveSnapshot: true })
-    .subscribe(snapshots => {
-      snapshots.forEach(snapshot => {
-        var nota = snapshot.val().nota;
-        if(nota > "4,0"){
-          urlEstrela = 'http://www.uninorte.com.br/wp-content/uploads/2015/09/5-estrela.png';
+    this.fdb.list('/barbearias', { preserveSnapshot: true })
+      .subscribe(snapshots => {
+        snapshots.forEach(snapshot => {
+          var nota = snapshot.val().nota;
+          if (nota > "4,0") {
+            urlEstrela = 'http://www.uninorte.com.br/wp-content/uploads/2015/09/5-estrela.png';
+          }
+          this.urlEstrelaMaster = urlEstrela;
         }
-        this.urlEstrelaMaster = urlEstrela;
+        )
       }
-    )
-  }
 
-    
-    )
-}
+
+      )
+  }
 
   //inclui de acordo com o caminho.
   btnAddClickedDois() {
@@ -131,14 +131,15 @@ export class HomePage {
   }
 
 
-  public localizarUsuario() {
-
+  public localizarUsuario(notaPesquisa = null) {
+    console.log('aqui '+ notaPesquisa);
     this.fdb.list('/barbearias', { preserveSnapshot: true })
       .subscribe(snapshots => {
         snapshots.forEach(snapshot => {
           var localizacaoBarbearia;
           var distanciaM;
           var barbearias2 = this.barbearias;
+          this.barbearias.pop();
           var nome = snapshot.val().nome;
           var foto = snapshot.val().foto;
           var nota = snapshot.val().nota;
@@ -165,7 +166,7 @@ export class HomePage {
 
             //FUNÇÃO QUE USA API MATRIX GOOGLE MAPS PARA RETORNAR A DISTANCIA EM Km 
             //ENTRE DOIS PONTOS
-           
+
             var distance = require('google-distance-matrix');
 
             var origins = [localizacaoBarbearia];
@@ -186,19 +187,38 @@ export class HomePage {
                     var destination = distances.destination_addresses[j];
                     if (distances.rows[0].elements[j].status == 'OK') {
                       var distancia = distances.rows[i].elements[j].distance.value;
-                      barbearias2.push(
-                        {
-                          "distancia": (Math.round(distancia / 100)) / 10,
-                          "nome": nome,
-                          "logradouro": logradouro,
-                          "foto": foto,
-                          "nota": nota,
-                          "servicos": servicos,
-                          "horario_ate": horario_ate,
-                          "horario_de": horario_de
-                        });
+
+                      if (notaPesquisa != null) {
+                        if (nota == notaPesquisa) {
+                          console.log('aqui '+ notaPesquisa);
+                          barbearias2.push(
+                            {
+                              "distancia": (Math.round(distancia / 100)) / 10,
+                              "nome": nome,
+                              "logradouro": logradouro,
+                              "foto": foto,
+                              "nota": nota,
+                              "servicos": servicos,
+                              "horario_ate": horario_ate,
+                              "horario_de": horario_de
+                            });
+                        }
+                      } else if (notaPesquisa == null) {
+console.log('aqui '+ notaPesquisa);
+                        barbearias2.push(
+                          {
+                            "distancia": (Math.round(distancia / 100)) / 10,
+                            "nome": nome,
+                            "logradouro": logradouro,
+                            "foto": foto,
+                            "nota": nota,
+                            "servicos": servicos,
+                            "horario_ate": horario_ate,
+                            "horario_de": horario_de
+                          });
+                      }
                       barbearias2.sort(sortFunction);
-                    } 
+                    }
                     else {
                       console.log(destination + ' is not reachable by land from ' + origin);
                     }
