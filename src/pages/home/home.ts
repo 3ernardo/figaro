@@ -131,8 +131,8 @@ export class HomePage {
   }
 
 
-  public localizarUsuario(notaPesquisa = null) {
-    console.log('aqui '+ notaPesquisa);
+  public localizarUsuario(param = null) {
+    console.log('aqui '+ param);
     this.fdb.list('/barbearias', { preserveSnapshot: true })
       .subscribe(snapshots => {
         snapshots.forEach(snapshot => {
@@ -187,38 +187,28 @@ export class HomePage {
                     var destination = distances.destination_addresses[j];
                     if (distances.rows[0].elements[j].status == 'OK') {
                       var distancia = distances.rows[i].elements[j].distance.value;
-
-                      if (notaPesquisa != null) {
-                        if (nota == notaPesquisa) {
-                          console.log('aqui '+ notaPesquisa);
-                          barbearias2.push(
-                            {
-                              "distancia": (Math.round(distancia / 100)) / 10,
-                              "nome": nome,
-                              "logradouro": logradouro,
-                              "foto": foto,
-                              "nota": nota,
-                              "servicos": servicos,
-                              "horario_ate": horario_ate,
-                              "horario_de": horario_de
-                            });
+                      barbearias2.push(
+                        {
+                          "distancia": (Math.round(distancia / 100)) / 10,
+                          "nome": nome,
+                          "logradouro": logradouro,
+                          "foto": foto,
+                          "nota": nota,
+                          "servicos": servicos,
+                          "horario_ate": horario_ate,
+                          "horario_de": horario_de
+                        });
+                  
+                      if (param != null) {
+                        if (param == 'nota') {
+                            barbearias2.sort(sortFunctionByNote);
+                      } else {  
+                          barbearias2.sort(sortFunctionByDistance);
                         }
-                      } else if (notaPesquisa == null) {
-console.log('aqui '+ notaPesquisa);
-                        barbearias2.push(
-                          {
-                            "distancia": (Math.round(distancia / 100)) / 10,
-                            "nome": nome,
-                            "logradouro": logradouro,
-                            "foto": foto,
-                            "nota": nota,
-                            "servicos": servicos,
-                            "horario_ate": horario_ate,
-                            "horario_de": horario_de
-                          });
-                      }
-                      barbearias2.sort(sortFunction);
+                    }else{
+                      barbearias2.sort(sortFunctionByDistance);
                     }
+                  }
                     else {
                       console.log(destination + ' is not reachable by land from ' + origin);
                     }
@@ -226,7 +216,17 @@ console.log('aqui '+ notaPesquisa);
                   }
                 }
               }
-              function sortFunction(a, b) {
+              function sortFunctionByNote(a, b) {
+                if (a["nota"] === b["nota"]) {
+                  return 0;
+                }
+                else {
+                  return (a["nota"] < b["nota"]) ? -1 : 1;
+                }
+              }
+
+
+              function sortFunctionByDistance(a, b) {
                 if (a["distancia"] === b["distancia"]) {
                   return 0;
                 }

@@ -7,13 +7,12 @@
 </ion-header>
 
 <ion-content padding id="home">
-
   <ion-toolbar>
     <ion-segment [(ngModel)]="icons" color="primary">
-      <ion-segment-button value="camera">
+      <ion-segment-button value="distancia" on-click="localizarUsuario('distancia')" >
         <ion-icon name="navigate"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="bookmark">
+      <ion-segment-button value="nota" on-click="localizarUsuario('nota')">
         <ion-icon name="star"></ion-icon>
       </ion-segment-button>
     </ion-segment>
@@ -26,7 +25,7 @@
   
 
   
-  <ion-list>
+  <ion-list id="list">
       <ion-item id="barbearia" *ngFor="let item of barbearias; let i = index" on-click="barbeariaDetail(this.item)">
           <ion-thumbnail item-start>
               <img src="{{item.foto}}">
