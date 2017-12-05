@@ -13,8 +13,8 @@
 </ion-header>
 
 
-<ion-content padding> 
-
+<ion-content padding id="agendamento"> 
+<div id="divAgendamento">
   <ion-item>
     <ion-label>Horários</ion-label>
     <ion-select [(ngModel)]="hora">
@@ -29,11 +29,12 @@
       <ion-option value="barbaEcabelo" > BARBA E CABELO</ion-option>
      </ion-select>
   </ion-item>
-
+</div>
+<div id="divButton">
   <button ion-button block on-click="salvarAgendamento(hora,servico)">
     <ion-icon ios="ios-checkbox" md="md-checkbox"></ion-icon> Salvar
 
   </button>
-
+</div>
 
 </ion-content>

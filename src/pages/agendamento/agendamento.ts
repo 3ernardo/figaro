@@ -71,21 +71,18 @@ export class AgendamentoPage {
 
 
   salvarAgendamento(horario, servico) {
+    const swal = require('sweetalert2')
 
-    if (horario == "undefined" || servico == "undefined") {
-      alert("selecione todos os campos");
-    }
+      
+    if (horario != null || servico != null) {
+    
+      var duracao;
 
-
-    var duracao;
     if (servico == "barbaEcabelo") {
       duracao = "1h";
     } else {
       duracao = "30min"
     }
-
-
-
 
     this.fdb.list("/agendamentos/" + this.nome + "/").push({
       horario: horario,
@@ -96,7 +93,24 @@ export class AgendamentoPage {
     });
 
 
-    this.navCtrl.popToRoot();
+    this.navCtrl.pop();
+
+    swal(
+      'Feito',
+      'Horário agendado com sucesso.',
+      'success'
+    )
+  }else{
+    swal(
+      'Oops...',
+      'Informe o horário e o serviço que deseja.',
+      'error'
+    )
+  }
+
+
+    
+
   }
 
 

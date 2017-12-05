@@ -5,6 +5,7 @@ import { AngularFireAuth} from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase'; 
 
+
 /**
  * Generated class for the LoginPage page.
  *

@@ -7,32 +7,25 @@
 </ion-header>
 
 <ion-content padding id="home">
-  
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="icons" color="primary">
+      <ion-segment-button value="camera">
+        <ion-icon name="navigate"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="bookmark">
+        <ion-icon name="star"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
   <ion-item id="localizacaoBairroCidade" >
   
   </ion-item>
   <ion-img width="30" height="30"  id="iconeLocalizacao" src="https://www.iconexperience.com/_img/i_collection_png/256x256/plain/location_pin.png"></ion-img>
-  <ion-item>
-    <ion-label>Filtro:</ion-label>
-   
-  </ion-item>
+  
 
-  <ion-item>
-    <ion-label>Nota</ion-label>
-    <ion-select [(ngModel)]="nota">
-      <ion-option value="1" >1</ion-option>
-      <ion-option value="2" > 2</ion-option>
-      <ion-option value="3" >3</ion-option>
-      <ion-option value="4" > 4</ion-option>
-      <ion-option value="5" >5</ion-option>
-      </ion-select>
-  </ion-item>
-
-
-  <button ion-button block on-click="localizarUsuario(nota)">
-    <ion-icon ios="ios-search" md="md-search"></ion-icon> Buscar
-  </button>
-
+  
   <ion-list>
       <ion-item id="barbearia" *ngFor="let item of barbearias; let i = index" on-click="barbeariaDetail(this.item)">
           <ion-thumbnail item-start>
