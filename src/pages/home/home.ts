@@ -221,7 +221,7 @@ export class HomePage {
                   return 0;
                 }
                 else {
-                  return (a["nota"] < b["nota"]) ? -1 : 1;
+                  return (a["nota"] < b["nota"]) ? 1 : -1;
                 }
               }
 

@@ -4,7 +4,7 @@ import { User } from '../../models/user';
 import { AngularFireAuth} from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase'; 
-
+import * as swal from 'sweetalert2';
 
 /**
  * Generated class for the LoginPage page.
@@ -19,33 +19,54 @@ import * as firebase from 'firebase';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
   user = {} as User;
   constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   async login(user: User, params){
-    try{
-      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.senha);
-      console.log(result);
-      if(result){
-        if (!params) params = {};
-        this.navCtrl.push(HomePage, { obj: params });
-      }
-  }catch(e){
-    console.log(e);
-    alert("Usuário ou senha incorretos");
-  }
+  const swal = require('sweetalert2')
+  
+
+        const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.senha).then(user => {
+          this.navCtrl.push(HomePage);
+          swal({
+            position: 'center',
+            type: 'success',
+            title: 'Aproveite nos descontos de natal, até 30% OFF',
+            showConfirmButton: false,
+            timer: 3500
+          })
+        }
+        ).catch(err => {
+          swal(
+            'Oops...',
+            'Usuário ou Senha estão errados.',
+            'error'
+          )
+        })
+        
 }
 
 googleLogin(params){
+
+  const swal = require('sweetalert2')
   this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
     console.log(user);
-    if (!params) params = {};
-    this.navCtrl.push(HomePage, { obj: params });
+    this.navCtrl.push(HomePage);
+    swal({
+      position: 'center',
+      type: 'success',
+      title: 'Aproveite nos descontos de natal, até 30% OFF',
+      showConfirmButton: false,
+      timer: 3500
+    })
   }
   ).catch(err =>  {
-    alert(err.message);
+    swal(
+      'Oops...',
+      'Acho que você não desligou o CORS.',
+      'error'
+    )
   })
 }
 

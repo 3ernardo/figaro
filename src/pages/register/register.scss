@@ -1,9 +1,17 @@
 page-register {
-    
+.content{
+    background-image: url("https://i.imgur.com/ODC48YM.png");
+    background-size:     cover;                     
+    background-repeat:   no-repeat;
+    background-position: center center;
+}  
 #buttonRegister{
     margin: 0 auto;
     margin-top: 60px;
     width: 90%;
+}
+#divCadastro{
+    margin-top: 100px;
 }
 
 }
