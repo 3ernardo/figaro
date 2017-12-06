@@ -56,7 +56,7 @@ googleLogin(params){
     swal({
       position: 'center',
       type: 'success',
-      title: 'Aproveite nos descontos de natal, até 30% OFF',
+      title: 'Aproveite nossos descontos de natal, até 30% OFF',
       showConfirmButton: false,
       timer: 3500
     })
