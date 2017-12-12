@@ -1,10 +1,51 @@
 page-register {
+    .branco{
+        color: #ffffff;
+    }
+    .inputlog{
+        background-color: rgba(0, 0, 0, 0);
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        padding-right: 15px;
+    }
+    .button {
+        border-color: #F8F6ED;
+        background-color: rgba(0, 0, 0, 0.300);
+        color: #F8F6ED;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+    }
+    #regist{
+        background-image: url(https://i.imgur.com/ph59Pd0.jpg);
+        background-size: cover;
+        background-position: center;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 .content{
     background-image: url("https://i.imgur.com/ODC48YM.png");
     background-size:     cover;                     
     background-repeat:   no-repeat;
     background-position: center center;
-}  
+}  */
 #buttonRegister{
     margin: 0 auto;
     margin-top: 60px;
