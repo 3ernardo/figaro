@@ -171,7 +171,7 @@ export class HomePage {
             
             var origins = [localizacaoBarbearia];
             var destinations = [latitude + "," + longitude];
-            distance.key('AIzaSyBsZJbu264oh-EOqD0wi5Obz9Glob-FiOQ');
+            distance.key('AIzaSyBhoUgnF8fWv8u7_RnnDZiXh2y7-wyH21c');
             distance.units('metric');
             distance.matrix(origins, destinations, function (err, distances) {
               if (err) {
