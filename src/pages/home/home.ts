@@ -168,10 +168,10 @@ export class HomePage {
             //ENTRE DOIS PONTOS
 
             var distance = require('google-distance-matrix');
-
+            
             var origins = [localizacaoBarbearia];
             var destinations = [latitude + "," + longitude];
-            distance.key('AIzaSyDl3kN1tvhtZMhXKy_zVmpnHmVty8PXYBg');
+            distance.key('AIzaSyBsZJbu264oh-EOqD0wi5Obz9Glob-FiOQ');
             distance.units('metric');
             distance.matrix(origins, destinations, function (err, distances) {
               if (err) {
